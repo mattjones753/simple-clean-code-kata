@@ -9,15 +9,21 @@ public class ProductPriceCalculator {
      * @return product price
      */
     public double productPrice(String s, String u) {
+        //get all users
         List<User> us = UserDAO.getInstance().getAllUsers();
+        //loop through users
         for (int j = 0; j < us.size(); j++) {
             if (us.get(j).name().equals(u)) {
+                // if user is employee
                 if (us.get(j).name().equals(u) && us.get(j).isEmployee()) {
+                    //get the products
                     List<Product> b = ProductDAO.getInstance().getAllProducts();
+                    //loop throught products
                     for (int i = 1; i <= b.size(); i++) {
                         Product p = b.get(i-1);
+                        //ignore if
                         if (!p.name().equals(s)) {
-                            // update the price to the discounted versiond
+                             continue;
                         }
                         else {
                             p.updatePrc(p.prc() - (p.prc() * 0.05));
@@ -30,7 +36,6 @@ public class ProductPriceCalculator {
         for (int i = 0; i < x.size(); i++) {
             Product p = x.get(i);
             if (p.name().equals(s)) {
-
                 return p.prc();
             }
         }
